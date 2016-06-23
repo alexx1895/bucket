@@ -1,0 +1,12 @@
+#mask {
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:99998;
+    background-color: #4D4D4D;
+    display:none;
+}
+.dialog_content{
+    display: inline;
+
+}
