@@ -226,27 +226,33 @@ $('.done').click(function(){
 
       perc = 0;
 
-      switch(types){
-        case 1 : perc = 0.1;
-        break
-        case 2 : perc = 0;
-        break
-        case 3: perc = 0.05;
-        break
-      }
+     setPrice(price, types);
 
-    if(price<=1200){
-      price += 850;
-    } else if(price>=1201 && price<=1500){
-      price += 920;
-    } else if(price>1500){
-      price +=980;
+
+    
+  }
+
+  function setPrice(price, types){
+    var format_price = price;
+  $.ajax({
+    url: 'index.php?route=product/compare_comp/getPrice',
+    type: 'post',
+    data: 'price='+price+'&types='+types,
+    dataType: 'json',
+    beforeSend: function() {
+      $('#button-cart').button('loading');
+    },
+    complete: function() {
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      },
+    success: function(json) {
+      console.log(json);
+      $("#sp").text(json['price']);
     }
 
-    price += price * perc;
-
-
-    $("#sp").text(price);
+  });
   }
 
 

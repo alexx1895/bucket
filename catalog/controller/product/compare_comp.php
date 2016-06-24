@@ -33,6 +33,8 @@ class ControllerProductCompareComp extends Controller {
 			$data['success'] = '';
 		}
 
+		$data['price_rules'] = explode(",", $this->config->get('config_price_rules'));
+
 		$this->load->model('catalog/buket');
 		$this->load->model('catalog/product');
 		$this->load->model('tool/image');
@@ -142,6 +144,47 @@ class ControllerProductCompareComp extends Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	public function getPrice(){
+		$json = array();
+
+		if(isset($this->request->post['price'])){
+			$price_flowers = $this->request->post['price'];
+		}
+
+		if(isset($this->request->post['types'])){
+			$types = $this->request->post['types'];
+		}
+
+		$price_rules = explode(",", $this->config->get('config_price_rules'));
+		//$types = count($groups);
+	
+		$perc = 0;
+	
+		foreach ($price_rules as $cond) {
+			if($cond{0} == "t"){
+				$cond2 = explode(":", $cond);
+				$ct = (int)substr($cond2[0], 1);
+				if($types == $ct){
+					$perc = $cond2[1];
+				}
+			} else {
+				$cond2 = explode(":", $cond);
+				if($price_flowers>=$cond2[0] && $price_flowers<=$cond2[1]){
+					$price_flowers += $cond2[2];
+				}
+			}
+		}
+
+
+		$price_flowers += $price_flowers * $perc;
+
+		$json['price'] = $price_flowers;
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+
 	}
 
 }

@@ -59,8 +59,8 @@
       
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            alert("Оплата этим способом невозможна");
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            //alert("Оплата этим способом невозможна");
             console.log(xhr.responseText);
         }
     });

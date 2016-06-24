@@ -342,6 +342,14 @@
                     <?php } ?>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-catalog-limit"><span data-toggle="tooltip" title="">Правила ценообразования</span></label>
+                  <div class="col-sm-10">
+                    <textarea name="config_price_rules" id="" cols="30" rows="5" class="form-control"><?php echo $config_price_rules; ?></textarea>
+                  </div>
+                </div>
+
                 <div class="form-group required">
                   <label class="col-sm-2 control-label" for="input-list-description-limit"><span data-toggle="tooltip" title="<?php echo $help_product_description_length; ?>"><?php echo $entry_product_description_length; ?></span></label>
                   <div class="col-sm-10">

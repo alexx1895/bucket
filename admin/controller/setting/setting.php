@@ -10,6 +10,7 @@ class ControllerSettingSetting extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+
 			$this->model_setting_setting->editSetting('config', $this->request->post);
 
 			if ($this->config->get('config_currency_auto')) {
@@ -667,6 +668,13 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_product_limit'] = $this->config->get('config_product_limit');
 		}
+
+		if (isset($this->request->post['config_price_rules'])) {
+			$data['config_price_rules'] = $this->request->post['config_price_rules'];
+		} else {
+			$data['config_price_rules'] = $this->config->get('config_price_rules');
+		}
+
 
 		if (isset($this->request->post['config_product_description_length'])) {
 			$data['config_product_description_length'] = $this->request->post['config_product_description_length'];

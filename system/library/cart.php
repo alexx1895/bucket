@@ -267,26 +267,45 @@ class Cart {
 
 					if($price < 1){
 
+						$price_rules = explode(",", $this->config->get('config_price_rules'));
+
 						$types = count($groups);
 					
 						$perc = 0;
 					
-						switch($types){
-							case 1: $perc = 0.1;
-							break;
-							case 2: $perc = 0;
-							break;
-							case 3: $perc = 0.05;
-							break;
+						foreach ($price_rules as $cond) {
+							if($cond{0} == "t"){
+								$cond2 = explode(":", $cond);
+								$ct = (int)substr($cond2[0], 1);
+								if($types == $ct){
+									$perc = $cond2[1];
+								}
+
+							} else {
+								$cond2 = explode(":", $cond);
+
+								if($price_flowers>=$cond2[0] && $price_flowers<=$cond2[1]){
+									$price_flowers += $cond2[2];
+								}
+							}
 						}
+
+						// switch($types){
+						// 	case 1: $perc = 0.1;
+						// 	break;
+						// 	case 2: $perc = 0;
+						// 	break;
+						// 	case 3: $perc = 0.05;
+						// 	break;
+						// }
 					
-						if($price_flowers<=1200){
-							$price_flowers += 850;
-						} else if(price>=1201 && price<=1500){
-							$price_flowers += 920;
-						} else if(price>1500){
-							$price_flowers +=980;
-						}
+						// if($price_flowers<=1200){
+						// 	$price_flowers += 850;
+						// } else if($price_flowers>=1201 && $price_flowers<=1500){
+						// 	$price_flowers += 920;
+						// } else if(price>=1501){
+						// 	$price_flowers +=980;
+						// }
 					
 						$price_flowers += $price_flowers * $perc;
 					}

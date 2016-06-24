@@ -266,7 +266,8 @@
                     <?php } ?>
                   </div>
                 </div>
-                <div class="form-group required">
+
+               <div class="form-group required">
                   <label class="col-sm-2 control-label" for="input-list-description-limit"><span data-toggle="tooltip" title="<?php echo $help_product_description_length; ?>"><?php echo $entry_product_description_length; ?></span></label>
                   <div class="col-sm-10">
                     <input type="text" name="config_product_description_length" value="<?php echo $config_product_description_length; ?>" placeholder="<?php echo $entry_product_description_length; ?>" id="input-list-description-limit" class="form-control" />
